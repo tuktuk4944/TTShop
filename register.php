@@ -32,7 +32,7 @@
 
             //Mysqli_query
             $result=$conn->query($sqlInsert);
-            if(result){
+            if($result){
                 //เมื่อ register สำเร็จ
                echo "<script language='javascript'>alert('Register Complete');</script>"; 
                header("Location: login.php");
