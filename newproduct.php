@@ -30,7 +30,16 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">About</a></li>
-                    <li><a href="#">Product</a></li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hapopup="true" aria-expanded="false"> 
+                           Product <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="showproduct.php?category=1">Notebook</a></li>
+                            <li><a href="showproduct.php?category=2">All in One</a></li>
+                            <li><a href="showproduct.php?category=3">PC</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 <?php
@@ -66,6 +75,7 @@
             </div>
         </div>
     </nav>
+
     <div class="container">
         <div class="row">
             <form action="saveproduct.php" class="form-horizontal" method="POST" enctype="multipart/form-data">

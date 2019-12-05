@@ -1,6 +1,25 @@
 <?php
     session_start();
+    if(isset($_GET['category'])){
+        $cat=$_GET['category'];
+    }
+    else{
+        header("location:index.php");
+    }
     include("connect.php");
+    $sql ="SELECT * FROM product WHERE category=$cat ";
+    $result = $conn->query($sql);
+    if(!$result){
+        echo "Error:".$conn->error;
+    }
+    else{
+        if($result->num_rows>0){
+            $prd = $result->fetch_object();
+        }
+        else{
+            $prd=NULL;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,21 +97,16 @@
 
     <div class="container text-center">
         <div class="jumbotron">
-            <h1>TingTong Shop5555</h1>
+            <h1>TingTong Shop</h1>
             <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nihil omnis amet temporibus rem id odit veritatis ea numquam molestiae.</p>
         </div>
         <div class="container">
             <div class="row">
             <?php
-                $sql = "SELECT * FROM product ORDER BY id";
-                $result = $conn->query($sql);
-                if(!$result){
-                    echo "Error during data retrieval";
-                }
-                else{
-                    //fetch data
-                    while($prd = $result->fetch_object()){
-                        ?>
+                 $sql ="SELECT * FROM product WHERE  category=$cat ";
+                 $result = $conn->query($sql);
+                while($prd = $result->fetch_object()){
+            ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                     <div class="thumbnail">
                         <a href="productdetail.php?pid=<?php echo $prd->id; ?>">
@@ -108,7 +122,6 @@
                 </div>
                         <?php
                     }
-                }
             ?>
                 
             </div>
