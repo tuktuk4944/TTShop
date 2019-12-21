@@ -30,6 +30,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">About</a></li>
+                    
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hapopup="true" aria-expanded="false"> 
                            Product <span class="caret"></span>
@@ -40,6 +41,7 @@
                             <li><a href="showproduct.php?category=3">PC</a></li>
                         </ul>
                     </li>
+                    <li><a href="searchProduct.php">Search</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 <?php
@@ -53,8 +55,8 @@
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Order</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="logout.php">Logout</a></li>                        
-                            </ul>
+                            <li><a href="logout.php">Logout</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="">
@@ -75,54 +77,77 @@
             </div>
         </div>
     </nav>
-
+    
     <div class="container">
         <div class="row">
-            <form action="saveproduct.php" class="form-horizontal" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="name" class="col-md-3 control-label">Name: </label>
-                    <div class="col-md-9">
-                        <input type="text" name="txtname" id=""class="form-control">
+            <h2>Search Product</h2>
+            <div class="col-md-12">
+            <form action="" method="post">
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" name="txtsearch" placeholder="ราคาต่ำสุด">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" name="txtsearch2" placeholder="ราคาสูงสุด">
+                        </div>
+                        <div class="col-md-2">
+                            <button name="submit" class="btn btn-block btn-success">
+                                <i class="glyphicon glyphicon-search"></i> Go!
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="name" class="col-md-3 control-label">Description: </label>
-                    <div class="col-md-9">
-                        <input type="textarea" name="txtdescription" id=""class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="name" class="col-md-3 control-label">Price: </label>
-                    <div class="col-md-9">
-                        <input type="text" name="txtprice" id=""class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="name" class="col-md-3 control-label">Stock: </label>
-                    <div class="col-md-9">
-                        <input type="text" name="txtstock" id=""class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="name" class="col-md-3 control-label">Category: </label>
-                    <div class="col-md-9">
-                        <input type="text" name="txtcat" id=""class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="name" class="col-md-3 control-label">Picture: </label>
-                    <div class="col-md-9">
-                        <input type="file" name="filepic" id=""class="form-control-file" accept="image/*">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-3">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="reset" class="btn btn-danger">Reset</button>
-                    </div>
-                </div>
             </form>
+            </div>
         </div>
     </div>
+
+
+    <?php
+        if(isset($_POST['submit'])){  
+            $search = $_POST['txtsearch'];
+            $search2 = $_POST['txtsearch2'];
+            $sql = "SELECT * FROM product WHERE price BETWEEN '$search' AND '$search2'";
+    ?>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" style="margin-top:50px;">
+            <h3><?php echo "ผลการค้นหา : ".$search." - ".$search2; ?></h3>
+            <?php
+            $result = $conn->query($sql);
+            
+                if(!$result){
+                    echo "Error during data retrieval";
+                }
+                else{
+                    //fetch data
+                    while($prd = $result->fetch_object()){
+                        ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="thumbnail">
+                        <a href="productdetail.php?pid=<?php echo $prd->id; ?>">
+                            <img src="img/product/<?php echo $prd->picture ?>" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3><?php echo $prd->name ?></h3>
+                            <p><?php echo $prd->description ?></p>
+                            <h4>Price : <?php echo $prd->price ?> Baht</h4>
+                        </div>
+                            <p>
+                            <a href="#" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Add To Cart.</a>
+                            <a href="editproduct.php?pid=<?php echo $prd->id ?>" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <a href="deleteproduct.php?pid=<?php echo $prd->id ?>" class="btn btn-danger lnkDelete" ><i class="glyphicon glyphicon-trash"></i></a>
+                            </p>
+                    </div>
+                </div>
+                        <?php
+                    }
+                }
+            ?>
+            </div>
+        </div>
+
+    <?php
+        }   
+    ?>
+  
 </body>
 </html>

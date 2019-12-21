@@ -72,7 +72,7 @@
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Order</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?php session_destroy(); ?>">Logout</a></li>
+                            <li><a href="logout.php">Logout</a></li>
                         </ul>
                     </li>
                     <li>

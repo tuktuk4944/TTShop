@@ -17,11 +17,12 @@
         $desc = $_POST['txtdescription'];
         $price = $_POST['txtprice'];
         $unitInStock = $_POST['txtstock'];
+        $cat = $_POST['txtcat'];
         $filename = $_FILES['filepic']['name'];
 
         move_uploaded_file($_FILES["filepic"]["tmp_name"],"img/product/".$_FILES["filepic"]["name"]);
 
-        $sqlInsert = "INSERT INTO product (name,description,price,unitInStock,picture)VALUES('$name','$desc','$price','$unitInStock','$filename')";
+        $sqlInsert = "INSERT INTO product (name,description,price,unitInStock,picture,category)VALUES('$name','$desc','$price','$unitInStock','$filename',$cat)";
         $result=$conn->query($sqlInsert);
         if($result){
            echo "<script language='javascript'>alert('Insert Product Complete');</script>"; 

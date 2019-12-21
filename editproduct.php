@@ -72,7 +72,7 @@
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Order</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?php session_destroy(); ?>">Logout</a></li>
+                            <li><a href="logout.php">Logout</a></li>
                         </ul>
                     </li>
                     <li>
@@ -97,7 +97,7 @@
 
     <div class="container">
         <div class="row">
-            <form action="saveproduct.php" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action="updateproduct.php" class="form-horizontal" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name" class="col-md-3 control-label">Name: </label>
                     <div class="col-md-9">
@@ -107,7 +107,7 @@
                 <div class="form-group">
                     <label for="name" class="col-md-3 control-label">Description: </label>
                     <div class="col-md-9">
-                        <input type="textarea" name="txtdescription" id=""class="form-control" value="<?php echo $prd->description; ?>" >
+                        <input type="text-area" name="txtdescription" id=""class="form-control" value="<?php echo $prd->description; ?>" >
                     </div>
                 </div>
                 <div class="form-group">
@@ -131,8 +131,10 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-3">
+                        <input type="hidden" name="hdnProductID" value="<?php echo $prd->id;?>">
+                        <input type="hidden" name="hdnProductPic" value="<?php echo $prd->picture;?>">
                         <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="submit" class="btn btn-danger">Reset</button>
+                        <button type="reset" class="btn btn-danger">Reset</button>
                     </div>
                 </div>
             </form>

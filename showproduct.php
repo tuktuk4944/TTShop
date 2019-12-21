@@ -72,7 +72,7 @@
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Order</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?php session_destroy(); ?>">Logout</a></li>
+                            <li><a href="logout.php">Logout</a></li>
                         </ul>
                     </li>
                     <li>
@@ -117,7 +117,9 @@
                             <p><?php echo $prd->description ?></p>
                             <h4>Price : <?php echo $prd->price ?> Baht</h4>
                         </div>
-                            <p><a href="#" class="btn btn-success">Add To Cart.</a></p>
+                        <a href="#" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Add To Cart.</a>
+                            <a href="editproduct.php?pid=<?php echo $prd->id ?>" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <a href="editproduct.php?pid=<?php echo $prd->id ?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
                     </div>
                 </div>
                         <?php

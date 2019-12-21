@@ -30,6 +30,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">About</a></li>
+                    
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hapopup="true" aria-expanded="false"> 
                            Product <span class="caret"></span>
@@ -40,6 +41,7 @@
                             <li><a href="showproduct.php?category=3">PC</a></li>
                         </ul>
                     </li>
+                    <li><a href="searchProduct.php">Search</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 <?php
@@ -53,7 +55,7 @@
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Order</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?php session_destroy(); ?>">Logout</a></li>
+                            <li><a href="logout.php">Logout</a></li>
                         </ul>
                     </li>
                     <li>
@@ -106,7 +108,7 @@
                             <p>
                             <a href="#" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Add To Cart.</a>
                             <a href="editproduct.php?pid=<?php echo $prd->id ?>" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-                            <a href="editproduct.php?pid=<?php echo $prd->id ?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                            <a href="deleteproduct.php?pid=<?php echo $prd->id ?>" class="btn btn-danger lnkDelete" ><i class="glyphicon glyphicon-trash"></i></a>
                             </p>
                     </div>
                 </div>
@@ -118,5 +120,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+    $(document).ready(function(){
+        $(".lnkDelete").click(function(){
+            return confirm("Confirm Delete?");
+        });
+    });
+    </script>
 </body>
 </html>
