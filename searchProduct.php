@@ -82,21 +82,28 @@
         <div class="row">
             <h2>Search Product</h2>
             <div class="col-md-12">
-            <form action="" method="post">
+                <form action="" method="post">
                     <div class="form-group">
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" name="txtsearch" placeholder="ราคาต่ำสุด">
-                        </div>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" name="txtsearch2" placeholder="ราคาสูงสุด">
+                        <div class="col-md-1">
+                            <label for="">ค้นหาตาม</label>
                         </div>
                         <div class="col-md-2">
-                            <button name="submit" class="btn btn-block btn-success">
+                            <select name="searchcol" id="" class="form-control btn btn-info">
+                                <option value="1">ชื่อสินค้า</option>    
+                                <option value="2">รายละเอียด</option>    
+                                <option value="3">ราคาสูงสุด</option>    
+                            </select>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control" name="txtsearch" placeholder="Search..">
+                        </div>
+                        <div class="col-md-2">
+                            <button name="submit" class="btn btn-block btn-light">
                                 <i class="glyphicon glyphicon-search"></i> Go!
                             </button>
                         </div>
                     </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
@@ -104,13 +111,21 @@
 
     <?php
         if(isset($_POST['submit'])){  
+            $searchcol = $_POST['searchcol'];
             $search = $_POST['txtsearch'];
-            $search2 = $_POST['txtsearch2'];
-            $sql = "SELECT * FROM product WHERE price BETWEEN '$search' AND '$search2'";
+            $sql = "SELECT * FROM product";
+            switch($searchcol){
+                case 1 : $sql .= " WHERE name LIKE '%$search%'";
+                        break;
+                case 2 : $sql .= " WHERE description LIKE '%$search%'";
+                        break;
+                case 3 : $sql .= " WHERE price<='$search'";
+                        break;
+            }
     ?>
         <div class="row">
             <div class="col-md-8 col-md-offset-2" style="margin-top:50px;">
-            <h3><?php echo "ผลการค้นหา : ".$search." - ".$search2; ?></h3>
+            <h3><?php echo "ผลการค้นหา : ".$search; ?></h3>
             <?php
             $result = $conn->query($sql);
             
