@@ -20,13 +20,14 @@
                     dataType:"json",
                     data:{ 
                         name:"Padrada",
-                        lastname:"Promkijjanon"},
+                        lastname:"Promkijjanon"
+                    },
                     success:function(res){
                         //alert("สวัสดี "+res.name+" "+res.lastname);
                         $("#para1").html(res.name);
                         $("#para2").html(res.lastname);
+                        }
                     }
-
                 });
             });
         });

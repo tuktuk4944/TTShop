@@ -78,6 +78,8 @@
 
     <div class="container">
         <div class="row">
+                        <!--method มี 2 แบบคือ get และ post-->
+                        <!--enctype="multipart/form-data" เป็นการระบุว่าสามารถอับโหลดรูปภาพได้ ถ้าไม่มีอันนี้ก็จะไม่สามารถอัปโหลดได้-->
             <form action="saveproduct.php" class="form-horizontal" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name" class="col-md-3 control-label">Name: </label>
@@ -112,6 +114,8 @@
                 <div class="form-group">
                     <label for="name" class="col-md-3 control-label">Picture: </label>
                     <div class="col-md-9">
+                    <!--หากจะอัปโหลดไฟล์จะต้องใส่ type ใน input เป็น file-->
+                    <!--accept="image/*" สำหรับกำหนดว่าไฟล์ที่อัปโหลดเป็นไฟล์รูปภาพที่มีนามสกุลอะไรก็ได้-->
                         <input type="file" name="filepic" id=""class="form-control-file" accept="image/*">
                     </div>
                 </div>

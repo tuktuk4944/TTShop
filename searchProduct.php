@@ -88,16 +88,24 @@
                             <label for="">ค้นหาตาม</label>
                         </div>
                         <div class="col-md-2">
-                            <select name="searchcol" id="" class="form-control btn btn-info">
-                                <option value="1">ชื่อสินค้า</option>    
-                                <option value="2">รายละเอียด</option>    
-                                <option value="3">ราคาสูงสุด</option>    
+                            <select name="searchcol"  class="form-control btn btn-info">
+                                <option value="1" >ชื่อสินค้า</option>    
+                                <option value="2" >รายละเอียด</option>    
+                                <option value="3" >ราคา</option>    
                             </select>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-8 content1">
                             <input type="text" class="form-control" name="txtsearch" placeholder="Search..">
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-8 content2">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="txtsearch1" placeholder="ราคาต่ำสุด">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="txtsearch2" placeholder="ราคาสูงสุด">
+                            </div>
+                        </div>
+                        <div class="col-md-1">
                             <button name="submit" class="btn btn-block btn-light">
                                 <i class="glyphicon glyphicon-search"></i> Go!
                             </button>
@@ -107,8 +115,22 @@
             </div>
         </div>
     </div>
-
-
+    <script>
+        $(document).ready(function(){
+            $('.content2').hide();
+            $("select").change(function(e){
+                if ($("select option:selected").val() == '1' || '2')
+                {
+                    $('.content1').show();
+                    $('.content2').hide();
+                } 
+                if ($("select option:selected").val() == '3') {
+                    $('.content2').show();
+                    $('.content1').hide();
+                }
+            }); 
+        });
+    </script>
     <?php
         if(isset($_POST['submit'])){  
             $searchcol = $_POST['searchcol'];
@@ -119,13 +141,16 @@
                         break;
                 case 2 : $sql .= " WHERE description LIKE '%$search%'";
                         break;
-                case 3 : $sql .= " WHERE price<='$search'";
+                case 3 : 
+                    $search1 = $_POST['txtsearch1'];
+                    $search2 = $_POST['txtsearch2'];
+                    $sql .= " WHERE price BETWEEN '$search1' AND '$search2'" ;
                         break;
             }
     ?>
         <div class="row">
             <div class="col-md-8 col-md-offset-2" style="margin-top:50px;">
-            <h3><?php echo "ผลการค้นหา : ".$search; ?></h3>
+            <h3><?php echo "ผลการค้นหา : ".$search .$search1 .$search2; ?></h3>
             <?php
             $result = $conn->query($sql);
             
